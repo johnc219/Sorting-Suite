@@ -13,5 +13,6 @@ int main(){
 	for (int i = 0; i < LENGTH; i++){
 		std::cout << v[i] << std::endl;
 	}
+	// Exit program
 	return 0;
 }

@@ -265,7 +265,7 @@ int Sorting::partition(std::vector<int>& A, int left, int right){
 	A[index] = A[right];
 	A[right] = temp;
 
-	// this is where A is partitioned
+	// this is where A will be partitioned
 	return index;
 }
 
