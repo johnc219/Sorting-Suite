@@ -7,9 +7,9 @@
 int main(){
 	std::vector<int> v;
 	for (int i = 0; i < LENGTH; i++){
-		v.push_back(LENGTH-i);
+		v.push_back((LENGTH-i)%10);
 	}
-	v = Sorting::merge_sort(v);
+	Sorting::quick_sort_in_place(v);
 	for (int i = 0; i < LENGTH; i++){
 		std::cout << v[i] << std::endl;
 	}

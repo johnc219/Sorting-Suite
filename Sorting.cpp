@@ -193,3 +193,93 @@ std::vector<int> Sorting::merge(std::vector<int> ALeft, std::vector<int> ARight)
 	return result;
 
 }
+
+/************************************  quick_sort  *************************************/
+
+// worst case:	Theta(n^2)
+// best case:	Theta(nlogn)
+std::vector<int> Sorting::quick_sort(std::vector<int> A, int left, int right){
+	
+	// When quicksort is first called, no argument other than A needs to be given. 
+	// The index of the rightmost element is assigned to 'right'
+	if (right == -100){
+		right = A.size()-1;
+	}
+
+	// if the subvector to be worked on is of size > 1, recurse further. Otherwise don't do anything
+	if (left < right){
+
+		// in the subvector, find at what index the right-most value was placed 
+		int pivot = Sorting::partition(A, left, right);
+
+		// recurse on the subvector left of the pivot and on the subvector right of the pivot
+		A = Sorting::quick_sort(A, left, pivot-1);
+		A = Sorting::quick_sort(A, pivot+1, right); 
+	}
+
+	// A is now the sorted subvector
+	return A;
+}
+
+// worst case:	Theta(n^2) (already sorted or reverse sorted):
+// best case:	Theta(nlogn)
+// The vector is sorted in place, no extra vectors are needed (saves memory)
+void Sorting::quick_sort_in_place(std::vector<int>& A, int left, int right){
+	
+	// When quicksort is first called, no argument other than A needs to be given. 
+	// The index of the rightmost element is assigned to 'right'
+	if (right == -100){
+		right = A.size()-1;
+	}
+
+	// if the subvector to be worked on is of size > 1, recurse further. Otherwise don't do anything
+	if (left < right){
+
+		// in the subvector, find at what index the right-most value was placed 
+		int pivot = Sorting::partition(A, left, right);
+
+		// recurse on the subvector left of the pivot and on the subvector right of the pivot
+		Sorting::quick_sort_in_place(A, left, pivot-1);
+		Sorting::quick_sort_in_place(A, pivot+1, right); 
+	}
+}
+
+// Theta(n)
+int Sorting::partition(std::vector<int>& A, int left, int right){
+	
+	// initialize index to the left-most index 
+	int index = left;
+
+	// everything to the left of index is <= to the pivot (right-most element)
+	for (int i = left; i < right; i++){
+		if (A[i] <= A[right]){
+			int temp = A[i];
+			A[i] = A[index];
+			A[index] = temp;
+			index++;
+		}
+	}
+
+	// swap the pivot with the value at the updated index
+	int temp = A[index];
+	A[index] = A[right];
+	A[right] = temp;
+
+	// this is where A is partitioned
+	return index;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
