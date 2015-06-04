@@ -1,14 +1,3 @@
-# To run compile and link if necessasry and then run the program
-# $ make run 
-.PHONY: run
-run : SortTest
-	./SortTest
-
-# To remove the object files and the executable
-# $ make clean
-.PHONY: clean
-clean :
-	rm *.o SortTest
 
 # Rule to get the executable
 SortTest : SortTest.o Sorting.o
@@ -21,3 +10,15 @@ SortTest.o : SortTest.cpp Sorting.h
 # Rule to get object file
 Sorting.o : Sorting.cpp Sorting.h
 	g++ -c Sorting.cpp
+
+# To run compile and link if necessasry and then run the program
+# $ make run 
+.PHONY: run
+run : SortTest
+	./SortTest
+
+# To remove the object files and the executable
+# $ make clean
+.PHONY: clean
+clean :
+	rm *.o SortTest

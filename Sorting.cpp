@@ -89,7 +89,7 @@ std::vector<int> Sorting::insertion_sort(std::vector<int> A){
 // worst case:	Theta(nlogn)
 // best case:	Theta(nlogn)
 std::vector<int> Sorting::merge_sort(std::vector<int> A){
-	
+
 	// stop recursively calling once the argument is of size 1, and return that 1-item argument
 	if (A.size() == 1){
 		return A;
@@ -269,6 +269,53 @@ int Sorting::partition(std::vector<int>& A, int left, int right){
 	return index;
 }
 
+/************************************  counting_sort  *************************************/
+
+// worst case:	Theta(n+m) (m is the range of values in A)
+// best case:	Theta(n+m)
+std::vector<int> Sorting::counting_sort(std::vector<int> A){
+	
+	// return empty vector if input is empty
+	if (A.empty()){
+		return A;
+	}
+		
+	// get min and max values
+	int min = A[0];
+	int max = A[0];
+	for (int i = 0; i < A.size(); i++){
+		if (A[i] > max){
+			max = A[i];
+		}
+		if (A[i] < min){
+			min = A[i];
+		}
+	}
+
+	// fill a new vector of counters with zeros to hold a counter for each unique numbers in A
+	int diff = max - min;
+	std::vector<int> count(diff+1, 0);
+
+	// as we iterate through A, update the counters by incrementing their corresponding values 
+	// using min as an offset allows us to sort vectors with negative numbers 
+	for (int i = 0; i < A.size(); i++){
+		count[A[i]-min]++;
+	}
+
+	// empty A so that it can be rebuilt in sorted order
+	A.clear();
+
+	// iterate through the counters, pushing index i+min (offset taken care of) as many times as they were counted
+	for (int i = 0; i < count.size(); i++){
+		while (count[i] > 0){
+			A.push_back(i+min);
+			count[i]--;
+		}
+	}
+
+	// A is now sorted
+	return A;
+}
 
 
 
