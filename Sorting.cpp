@@ -1,4 +1,6 @@
 #include "Sorting.h"
+#include <list>
+#include <iostream>
 
 /************************************  bubble_sort  *************************************/
 
@@ -317,8 +319,75 @@ std::vector<int> Sorting::counting_sort(std::vector<int> A){
 	return A;
 }
 
+/************************************  radix_sort (LSD) *************************************/
 
+// worst case:	Theta(k(n+a)) where k is the max number of digits, n is the number of items in A, and a is the alphabet count
+// best case:	Theta(k(n+a))
+// supports only bases 1 through 10
+// supports nonnegative integers only
+std::vector<int> Sorting::radix_sort(std::vector<int> A, int base){
+	
+	// check for empty input vector or invalid base
+	if (A.empty() || base < 1 || base > 10){
+		std::cout << "Error: empty vector or invalid/unsupported base" << std::endl; 
+		return A;
+	}
 
+	// vector of buckets. 1 bucket for each possible digit value
+	std::vector<std::list<int> > buckets(base, std::list<int>());
+
+	// determine the max in order to determine number of digits we must iterate through
+	int max = A[0];
+	for (int i = 0; i < A.size(); i++){
+		if (A[i] > max){
+			max = A[i];
+		}
+	}
+
+	// determine number of digits of the max number
+	int digits = 0;
+	while (max > 0){
+		max = max / 10;
+		digits++;
+	}
+
+	// mod by 10 to get the right most digit. divide by divisor (n^10) to cut off n digits
+	const int mod = 10;
+	int divisor = 1;
+	
+	// place into buckets and then pull out from buckets as many times as there are digits in the max number
+	for (int i = 0; i < digits; i++){
+
+		// place into buckets
+		for (int j = 0; j < A.size(); j++){
+			int index = (A[j] / divisor) % mod;
+			(buckets[index]).push_back(A[j]);
+		}
+
+		// update A by pulling out from the buckets
+		int location = 0;
+		for (int j = 0; j < buckets.size(); j++){
+			while (!(buckets[j]).empty()){
+				A[location] = (buckets[j]).front();
+				(buckets[j]).pop_front();
+				location++;
+			}
+		}
+
+		// update divisor in order to look at the next LSD in next iteration
+		divisor *= 10;
+	}
+
+	// A is now sorted
+	return A;
+}
+
+void Sorting::print_vector(std::vector<int> A){
+	for (int i = 0; i < A.size(); i++){
+		std::cout << A[i] << " ";
+	}
+	std::cout << std::endl;
+}
 
 
 

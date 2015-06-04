@@ -15,6 +15,9 @@ namespace Sorting{
 	void quick_sort_in_place(std::vector<int>& A, int left = 0, int right = -100);
 	int partition(std::vector<int>& A, int left, int right);
 	std::vector<int> counting_sort(std::vector<int> A);
+	std::vector<int> radix_sort(std::vector<int> A, int base = 10);
+
+	void print_vector(std::vector<int> A);
 
 }
 
