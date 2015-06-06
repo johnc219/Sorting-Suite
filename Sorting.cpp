@@ -1,6 +1,4 @@
 #include "Sorting.h"
-#include <list>
-#include <iostream>
 
 /************************************  bubble_sort  *************************************/
 
@@ -382,6 +380,8 @@ std::vector<int> Sorting::radix_sort(std::vector<int> A, int base){
 	return A;
 }
 
+/************************************  bucket_sort  *************************************/
+
 // For numbers evenly distributed from (0, 1]
 // worst case:	Theta(n^2)
 // best case:	Theta(n+k)
@@ -415,15 +415,6 @@ std::vector<float> Sorting::bucket_sort(std::vector<float> A){
 
 	// A is now sorted
 	return A;
-}
-
-
-// function to print out contents of the vector A
-void Sorting::print_vector(std::vector<int> A){
-	for (int i = 0; i < A.size(); i++){
-		std::cout << A[i] << " ";
-	}
-	std::cout << std::endl;
 }
 
 

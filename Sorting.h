@@ -2,6 +2,8 @@
 #define SORTING_H
 
 #include <vector>
+#include <list>
+#include <iostream>
 
 // A namespace where user-defined sorting algorithms exist
 namespace Sorting{
@@ -18,8 +20,18 @@ namespace Sorting{
 	std::vector<int> radix_sort(std::vector<int> A, int base = 10);
 	std::vector<float> bucket_sort(std::vector<float> A);
 
-	void print_vector(std::vector<int> A);
+	template<typename T>
+	void print_vector(std::vector<T> A);
 
+}
+
+// function to print out contents of the vector A
+template<typename T>
+void Sorting::print_vector(std::vector<T> A){
+	for (int i = 0; i < A.size(); i++){
+		std::cout << A[i] << " ";
+	}
+	std::cout << std::endl;
 }
 
 #endif
