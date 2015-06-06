@@ -4,6 +4,8 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 // A namespace where user-defined sorting algorithms exist
 namespace Sorting{
@@ -22,6 +24,10 @@ namespace Sorting{
 
 	template<typename T>
 	void print_vector(std::vector<T> A);
+	template<typename T>
+	void fill_vector(std::vector<T>& A, int length, T lower, T upper);
+	template<typename T>
+	bool is_sorted(std::vector<T> A);
 
 }
 
@@ -32,6 +38,29 @@ void Sorting::print_vector(std::vector<T> A){
 		std::cout << A[i] << " ";
 	}
 	std::cout << std::endl;
+}
+
+// function to fill a vector with random numbers
+template<typename T>
+void Sorting::fill_vector(std::vector<T>& A, int length, T lower, T upper){
+
+	A.clear();
+	T range = upper - lower;
+	for (int i = 0; i < length; i++){
+		T num = static_cast<T>( lower + (rand() / (RAND_MAX / range)) );
+		A.push_back(num);
+	}
+}
+
+// function to check if a vector is sorted
+template<typename T>
+bool Sorting::is_sorted(std::vector<T> A){
+	for (int i = 1; i < A.size(); i++){
+		if (A[i] < A[i-1]){
+			return false;
+		}
+	}
+	return true;
 }
 
 #endif
