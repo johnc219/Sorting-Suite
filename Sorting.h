@@ -16,6 +16,7 @@ namespace Sorting{
 	int partition(std::vector<int>& A, int left, int right);
 	std::vector<int> counting_sort(std::vector<int> A);
 	std::vector<int> radix_sort(std::vector<int> A, int base = 10);
+	std::vector<float> bucket_sort(std::vector<float> A);
 
 	void print_vector(std::vector<int> A);
 

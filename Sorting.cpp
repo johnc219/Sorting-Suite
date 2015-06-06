@@ -246,7 +246,7 @@ void Sorting::quick_sort_in_place(std::vector<int>& A, int left, int right){
 	}
 }
 
-// Theta(n)
+// complexity:	Theta(n)
 int Sorting::partition(std::vector<int>& A, int left, int right){
 	
 	// initialize index to the left-most index 
@@ -382,6 +382,43 @@ std::vector<int> Sorting::radix_sort(std::vector<int> A, int base){
 	return A;
 }
 
+// For numbers evenly distributed from (0, 1]
+// worst case:	Theta(n^2)
+// best case:	Theta(n+k)
+std::vector<float> Sorting::bucket_sort(std::vector<float> A){
+
+	// return empty vector if input is empty
+	if (A.empty()){
+		return A;
+	}
+	
+	// set up buckets
+	const int num_buckets = A.size();
+	std::vector<std::list<float> > buckets(num_buckets, std::list<float>());
+
+	// place elements in corresponding buckets
+	for (int i = 0; i < A.size(); i++){
+		int index = static_cast<int>(A[i] * static_cast<float>(num_buckets));
+		(buckets[index]).push_back(A[i]);
+	} 
+
+	// sort buckets and rewrite A in sorted order
+	int location = 0;
+	for (int i = 0; i < buckets.size(); i++){
+		(buckets[i]).sort();
+		while (!(buckets[i]).empty()){
+			A[location] = (buckets[i]).front();
+			buckets[i].pop_front();
+			location++;
+		}
+	}
+
+	// A is now sorted
+	return A;
+}
+
+
+// function to print out contents of the vector A
 void Sorting::print_vector(std::vector<int> A){
 	for (int i = 0; i < A.size(); i++){
 		std::cout << A[i] << " ";
